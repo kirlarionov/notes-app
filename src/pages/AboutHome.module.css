@@ -1,0 +1,28 @@
+.aboutWrapper {
+   display: flex;
+}
+.aboutInfo {
+   width: 100%;
+   height: 100%;
+   font-size: 24px;
+   background-color: rgb(238, 238, 196);
+   line-height: 34px;
+   padding: 50px;
+   margin-right: 15px;
+}
+
+.aboutInfo h1 {
+   display: inline-block;
+   font-size: 30px;
+   line-height: 36px;
+   margin-bottom: 15px;
+}
+
+.aboutInfo span {
+   font-size: 17px;
+}
+
+.aboutWrapper img{
+   width: 512px;
+   height: 512px;
+}

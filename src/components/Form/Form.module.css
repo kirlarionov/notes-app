@@ -1,0 +1,36 @@
+.formControl {
+   width: 79%;
+   padding: 10px;
+   border-radius: 10px;
+   font-size: 17px;
+   box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);
+   font-family: Arial, Helvetica, sans-serif;
+   margin-bottom: 15px;
+}
+
+.statusSelect {
+   margin-left: 10px;
+   font-size: 18px;
+   padding: 3px 5px;
+   border-radius: 5px;
+}
+
+.button7 {
+   font-weight: 700;
+   color: white;
+   font-size: 18px;
+   text-decoration: none;
+   padding: 11px 15px;
+   border-radius: 3px;
+   background: rgb(64, 199, 129);
+   box-shadow: 0 -3px rgb(53, 167, 110) inset;
+   transition: 0.2s;
+   margin-left: 35px;
+}
+.button7:hover {
+   background: rgb(53, 167, 110);
+}
+.button7:active {
+   background: rgb(33, 147, 90);
+   box-shadow: 0 3px rgb(33, 147, 90) inset;
+}

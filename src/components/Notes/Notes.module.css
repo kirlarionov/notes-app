@@ -1,0 +1,67 @@
+.listItem {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border: 2px solid rgb(255, 254, 254);
+   margin-bottom: 15px;
+   padding: 10px 20px;
+}
+
+.listItem:hover {
+   background-color: rgb(224, 213, 215);
+   transition: 0.2s;
+}
+
+.active {
+   background-color: rgb(153, 153, 153);
+   text-decoration: line-through 2px;
+}
+.active:hover {
+   background-color: rgb(153, 153, 153);
+}
+
+.listItem strong {
+   margin-right: 1rem;
+   padding-left: 10px;
+}
+
+.date {
+   font-size: 16px;
+   margin-right: 20px;
+}
+
+.noteItem {
+   width: 100%;
+   display: flex;
+}
+
+.numberRecords {
+   font-size: 18px;
+   margin-left: 25px;
+}
+
+.noteItem strong {
+   text-transform: capitalize;
+}
+
+/* ----------------------------------------------------- */
+.button7 {
+   font-weight: 700;
+   color: white;
+   text-decoration: none;
+   padding: 5px 10px;
+   border-radius: 3px;
+   background: rgb(237 122 122);
+   box-shadow: 0 -3px rgb(228, 83, 108) inset;
+   transition: 0.2s;
+   font-size: 24px;
+}
+.button7:hover {
+   background: rgb(228, 83, 108);
+   box-shadow: 0 -3px rgb(203, 18, 50) inset;
+}
+.button7:active {
+   background: rgb(224, 101, 54);
+   background: rgb(228 83 108);
+   box-shadow: 0 3px rgb(228 83 108) inset;
+}

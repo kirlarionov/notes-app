@@ -17,8 +17,8 @@ export const addTodo = async (data) => {
    return await response.json()
 }
 
-export const removeTodo = async (id, setStateNotes) => {
-   await fetch(`${API_URL}/${id}`, { method: "DELETE" })
-   const updateData = await getTodos().then(data => setStateNotes(data))
-   return updateData
+export const removeTodo = async (id) => {
+   const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" })
+   return await response.json()
+//   const updateData = await getTodos().then(data => setStateNotes(data))
 }

@@ -60,8 +60,7 @@
    background: rgb(228, 83, 108);
    box-shadow: 0 -3px rgb(203, 18, 50) inset;
 }
-.button7:active {
+.button7:focus {
    background: rgb(224, 101, 54);
-   background: rgb(228 83 108);
    box-shadow: 0 3px rgb(228 83 108) inset;
 }

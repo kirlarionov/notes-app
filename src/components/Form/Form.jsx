@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef } from "react";
 import cl from "./Form.module.css"
+import { addTodo } from "../../services/todos"
 
 
-export const Form = ({ addNote }) => {
-   const [inputValue, setInputValue] = useState('')
-   const [statusValue, setStatusValue] = useState('active')
+export const Form = ({ addNoteHandle }) => {
 
-   const submitHandler = event => {
+   const inputRef = useRef()
+
+   const submitHandler = useCallback(event => {
       event.preventDefault()
-   }
+      const formData = new FormData(event.currentTarget)
+      const { status, ...data } = Object.fromEntries(formData)
+      addTodo({ ...data, done: status === 'done' }).then(data => addNoteHandle(data))
+      inputRef.current && (inputRef.current.value = '')
+   }, [addNoteHandle])
 
-   const capitalizeFirstLetter = (str) => {
-      return str.charAt(0).toUpperCase() + str.substring(1);
-   }
 
    return (
       <form onSubmit={submitHandler}>
          <div className="form-group">
             <input
+               ref={inputRef}
+               name="title"
                type="text"
                className={cl.formControl}
                placeholder="Enter a title for your note..."
-               value={inputValue}
-               onChange={e => setInputValue(e.target.value)}
             />
             <select
-               name="statusSelect"
-               className={cl.statusSelect}
-               onChange={e => setStatusValue(capitalizeFirstLetter(e.target.value))}>
+               name="status"
+               className={cl.statusSelect}>
                <option disabled>status:</option>
                <option value="active" className={cl.activeId}>Active</option>
                <option value="done">Done</option>
             </select>
             <button
                className={cl.button7}
-               onClick={() => addNote(inputValue, setInputValue, statusValue)}
             >Add</button>
          </div>
       </form>

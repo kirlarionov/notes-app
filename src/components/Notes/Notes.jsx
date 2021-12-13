@@ -1,4 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import { getTodos } from "../../store/actions"
+import { todosDataSelector, todosFetchingSelector } from "../../store/selectors"
 import classes from "./Notes.module.css"
 import clsx from 'clsx'
 import { removeTodo, updateTodo } from "../../services/todos"
@@ -6,7 +9,22 @@ import editImg from '../../assets/image/edit.svg'
 import deleteImg from '../../assets/image/delete24.svg'
 
 
-export const Notes = ({ notes, setStateNotes }) => {
+export const Notes = () => {
+
+   const setStateNotes = useCallback(
+      () => {
+         console.log('setStateNote')
+      },
+      []
+   )
+
+   const todos = useSelector(todosDataSelector)
+   const loading = useSelector(todosFetchingSelector)
+
+   const dispatch = useDispatch()
+   useEffect(() => {
+      dispatch(getTodos())
+   }, [dispatch])
 
    const [editNoteId, setEditNoteId] = useState(false)
    const [editInputValue, setEditInputValue] = useState('')
@@ -66,10 +84,13 @@ export const Notes = ({ notes, setStateNotes }) => {
          })
    }, [setStateNotes])
 
+   if (loading) {
+      return <div>Loading...</div>
+   }
 
    return (
       <ul className={classes.notesUl}>
-         {Object.values(notes).map((note, index) => (
+         {Object.values(todos).map((note, index) => (
             <li
                className={clsx(classes.listItem, {
                   [classes.active]: note.done
@@ -115,7 +136,7 @@ export const Notes = ({ notes, setStateNotes }) => {
 
             </li>
          ))}
-         <div className={classes.numberRecords}>Number of notes: <strong>{Object.keys(notes).length}</strong></div>
+         <div className={classes.numberRecords}>Number of notes: <strong>{Object.keys(todos).length}</strong></div>
       </ul>
    )
 }

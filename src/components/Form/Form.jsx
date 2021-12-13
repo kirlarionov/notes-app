@@ -3,7 +3,11 @@ import cl from "./Form.module.css"
 import { addTodo } from "../../services/todos"
 
 
-export const Form = ({ addNoteHandle }) => {
+export const Form = () => {
+
+   const addNoteHandle = useCallback(() => {
+      console.log('addNoteHandle')
+   }, [])
 
    const inputRef = useRef()
 

@@ -6,8 +6,8 @@ import { getTodos } from "../services/todos"
 export const Home = () => {
    const [stateNotes, setStateNotes] = useState({})
 
-   const addNoteHandle = useCallback((note) => {
-      setStateNotes((prevState) => ([...prevState, note]))
+   const addNoteHandle = useCallback(note => {
+      setStateNotes(prevState => ({ ...prevState, [note.id]: note }))
    }, [])
 
    useEffect(() => {
@@ -17,7 +17,6 @@ export const Home = () => {
       }), {})))
    }, [])
 
-   
    return (
       <>
          <Form addNoteHandle={addNoteHandle} />

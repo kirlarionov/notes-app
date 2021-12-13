@@ -20,5 +20,13 @@ export const addTodo = async (data) => {
 export const removeTodo = async (id) => {
    const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" })
    return await response.json()
-//   const updateData = await getTodos().then(data => setStateNotes(data))
+}
+
+export const updateTodo = async (id, data) => {
+   const response = await fetch(`${API_URL}/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+   })
+   return await response.json()
 }

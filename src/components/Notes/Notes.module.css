@@ -1,10 +1,12 @@
 .listItem {
+   position: relative;
    display: flex;
    justify-content: space-between;
    align-items: center;
    border: 2px solid rgb(255, 254, 254);
    margin-bottom: 15px;
    padding: 10px 20px;
+   cursor: pointer;
 }
 
 .listItem:hover {
@@ -40,27 +42,86 @@
    margin-left: 25px;
 }
 
-.noteItem strong {
-   text-transform: capitalize;
+.noteItem strong:first-letter {
+   text-transform: uppercase;
 }
 
-/* ----------------------------------------------------- */
-.button7 {
-   font-weight: 700;
-   color: white;
-   text-decoration: none;
-   padding: 5px 10px;
+/*              Edit & Delete bottom           */
+.editBtn {
    border-radius: 3px;
-   background: rgb(237 122 122);
+   background: rgb(105, 118, 238);
+   box-shadow: 0 -3px rgb(78, 55, 207) inset;
+   transition: 0.2s;
+   padding: 6px 6px 7px;
+   margin-right: 10px;
+}
+
+.editBtn:hover {
+   background: rgb(70, 70, 231);
+   box-shadow: 0 -3px rgb(55, 31, 196) inset;
+}
+.editBtn:focus {
+   background: rgb(51, 112, 245);
+   box-shadow: 0 -3px rgb(55, 31, 196) inset;
+}
+
+.deleteBtn {
+   padding: 6px 6px 7px;
+   border-radius: 3px;
+   background: rgb(237, 122, 122);
    box-shadow: 0 -3px rgb(228, 83, 108) inset;
    transition: 0.2s;
-   font-size: 24px;
 }
-.button7:hover {
+.deleteBtn:hover {
    background: rgb(228, 83, 108);
    box-shadow: 0 -3px rgb(203, 18, 50) inset;
 }
-.button7:focus {
+.deleteBtn:focus {
    background: rgb(224, 101, 54);
-   box-shadow: 0 3px rgb(228 83 108) inset;
+   box-shadow: 0 -3px rgb(228 83 108) inset;
+}
+
+/*              dropdown EDIT block                */
+.editBlock {
+   display: flex;
+   align-items: center;
+   position: absolute;
+   top: 61px;
+   left: 49px;
+   z-index: 1000;
+   width: 750px;
+}
+
+.updateBtn {
+   color: white;
+   font-weight: bold;
+   border-radius: 3px;
+   background: rgb(51, 112, 245);
+   box-shadow: 0 -3px rgb(78, 55, 207) inset;
+   transition: 0.2s;
+   padding: 6px 6px 7px;
+   margin-left: 6px;
+}
+
+.updateBtn:hover {
+   background: rgb(70, 70, 231);
+   box-shadow: 0 -3px rgb(55, 31, 196) inset;
+}
+.updateBtn:focus {
+   background: rgb(51, 112, 245);
+   box-shadow: 0 -3px rgb(55, 31, 196) inset;
+}
+
+.editInput {
+   width: 91%;
+   font-size: 20px;
+   line-height: 28px;
+   box-shadow: inset 2px 2px 5px rgb(0, 46, 255), 1px 1px 5px rgba(255, 255, 255, 1);
+   font-family: Arial, Helvetica, sans-serif;
+   padding: 5px 10px;
+   border-radius: 0 0 10px 10px;
+}
+.editInput::placeholder {
+   font-weight: normal;
+   font-size: 17px;
 }

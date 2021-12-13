@@ -30,7 +30,7 @@ export const Form = ({ addNoteHandle }) => {
                name="status"
                className={cl.statusSelect}>
                <option disabled>status:</option>
-               <option value="active" className={cl.activeId}>Active</option>
+               <option value="active">Active</option>
                <option value="done">Done</option>
             </select>
             <button

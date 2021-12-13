@@ -9,15 +9,14 @@ import cl from './App.module.css'
 function App() {
    return (
       <BrowserRouter>
-      <Navbar />
+         <Navbar />
          <div className={cl.container}>
             <Switch>
-               <Route path={"/"} exact component={Home}/>
-               <Route path={"/about"} component={About}/>
+               <Route path={"/"} exact component={Home} />
+               <Route path={"/about"} component={About} />
             </Switch>
          </div>
       </BrowserRouter>
-
    );
 }
 

@@ -1,92 +1,107 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { getTodos } from "../../store/actions"
-import { todosDataSelector, todosFetchingSelector } from "../../store/selectors"
-import classes from "./Notes.module.css"
 import clsx from 'clsx'
-import { removeTodo, updateTodo } from "../../services/todos"
+import classes from "./Notes.module.css"
+import { getTodos, removeTodo, updateTodo, toggleStatusHandle } from "../../store/actions"
+import { todosDataSelector, todosFetchingSelector } from "../../store/selectors"
 import editImg from '../../assets/image/edit.svg'
 import deleteImg from '../../assets/image/delete24.svg'
+import loader from '../../assets/image/loader.gif'
 
 
 export const Notes = () => {
 
-   const setStateNotes = useCallback(
-      () => {
-         console.log('setStateNote')
-      },
-      []
-   )
-
    const todos = useSelector(todosDataSelector)
    const loading = useSelector(todosFetchingSelector)
-
    const dispatch = useDispatch()
-   useEffect(() => {
-      dispatch(getTodos())
-   }, [dispatch])
 
-   const [editNoteId, setEditNoteId] = useState(false)
+   useEffect(() => dispatch(getTodos()), [dispatch])
+
+   const [editNoteId, setEditNoteId] = useState(null)
    const [editInputValue, setEditInputValue] = useState('')
 
+   //                                      БЕЗ Redux 
+   // const toggleHandle = useCallback(e => {
+   //    const el = e.currentTarget
+   //    setStateNotes(prevState => {
+   //       const { [el.dataset.id]: currentNote, ...newNotes } = prevState
+   //       const updatedNote = { ...currentNote, done: !currentNote.done }
+   //       updateTodo(updatedNote.id, { done: updatedNote.done })
+   //       return {
+   //          ...newNotes,
+   //          [updatedNote.id]: updatedNote
+   //       }
+   //    })
+   //    el.classList.toggle(`${classes.active}`)
+   // }, [setStateNotes])
 
-   const toggleHandle = useCallback((e) => {
+   const toggleHandle = useCallback(e => {
       const el = e.currentTarget
-      setStateNotes(prevState => {
-         const { [el.dataset.id]: currentNote, ...newNotes } = prevState
-         const updatedNote = { ...currentNote, done: !currentNote.done }
-         updateTodo(updatedNote.id, { done: updatedNote.done })
-         return {
-            ...newNotes,
-            [updatedNote.id]: updatedNote
-         }
-      })
+      const { [el.dataset.id]: currentNote } = todos
+      dispatch(toggleStatusHandle(el.dataset.id, { done: !currentNote.done }))
       el.classList.toggle(`${classes.active}`)
-   }, [setStateNotes])
+   }, [dispatch, todos])
 
-
-   const editTodoHandle = useCallback((e) => {
+   const editTodoHandle = useCallback(e => {
       e.stopPropagation()
       const { id, title } = e.currentTarget.dataset
       setEditNoteId(id)
       setEditInputValue(title)
    }, [setEditNoteId])
 
-   const updateTodoHandle = useCallback((e) => {
+   //                                      БЕЗ Redux 
+   // const updateTodoHandle = useCallback(e => {
+   //    e.stopPropagation()
+   //    const el = e.currentTarget
+   //    setStateNotes(prevState => {
+   //       const { [el.dataset.id]: currentNote, ...newNotes } = prevState
+   //       const updatedNote = { ...currentNote, title: editInputValue }
+   //       updateTodo(updatedNote.id, { title: updatedNote.title })
+   //       return {
+   //          ...newNotes,
+   //          [updatedNote.id]: updatedNote
+   //       }
+   //    })
+   //    setEditNoteId(null)
+   // }, [setStateNotes, editInputValue])
+
+   const updateTodoHandle = useCallback(e => {
       e.stopPropagation()
-      const el = e.currentTarget
-      setStateNotes((prevState) => {
-         const { [el.dataset.id]: currentNote, ...newNotes } = prevState
-         const updatedNote = { ...currentNote, title: editInputValue }
-         updateTodo(updatedNote.id, { title: updatedNote.title })
-         return {
-            ...newNotes,
-            [updatedNote.id]: updatedNote
-         }
-      })
+      dispatch(updateTodo(editNoteId, editInputValue))
       setEditNoteId(null)
-   }, [setStateNotes, editInputValue])
+   }, [editInputValue, editNoteId, dispatch])
 
-   const getInputValue = useCallback((e) => {
-      setEditInputValue(e.currentTarget.value)
-   }, [])
+   //                                      БЕЗ Redux 
+   // const removeTodoHandle = useCallback(e => {
+   //    e.stopPropagation()
+   //    const { id } = e.currentTarget.dataset
+   //    removeTodo(id)
+   //       .then(data => {
+   //          data && setStateNotes(notes => {
+   //             const { [id]: removedNote, ...newState } = notes
+   //             return newState
+   //          })
+   //       })
+   // }, [setStateNotes])
 
-
-   const removeTodoHandle = useCallback((e) => {
+   const removeTodoHandle = useCallback(e => {
       e.stopPropagation()
+      const button = e.currentTarget
       const { id } = e.currentTarget.dataset
-      removeTodo(id)
-         .then(data => {
-            data && setStateNotes(notes => {
-               const { [id]: removedNote, ...newState } = notes
-               return newState
-            })
-         })
-   }, [setStateNotes])
+      const img = e.currentTarget.children[0]
+      button.classList.toggle(classes.buttonLoading)
+      img.classList.toggle(classes.imgHidden)
+      dispatch(removeTodo(id))
+   }, [dispatch])
 
-   if (loading) {
-      return <div>Loading...</div>
+   const getInputValue = useCallback(e => setEditInputValue(e.currentTarget.value), [])
+   const onClickEditBlock = useCallback(e => e.stopPropagation(), [])
+   const onCancellBtn = useCallback(() => setEditNoteId(null), [])
+
+   if (loading === "GET") {
+      return <img src={loader} alt="loader" style={{ paddingLeft: 450, paddingTop: 40 }} />
    }
+
 
    return (
       <ul className={classes.notesUl}>
@@ -95,16 +110,19 @@ export const Notes = () => {
                className={clsx(classes.listItem, {
                   [classes.active]: note.done
                })}
-               key={note.id}
+               key={note.id + 'noteId'}
                data-id={note.id}
                data-index={index}
                onClick={toggleHandle}
             >
+
                <div className={classes.noteItem}>
                   <p>{index + 1}.</p>
                   <strong>{note.title}</strong>
                </div>
+
                <span className={classes.date}>{new Date(note.updatedAt).toLocaleString()}</span>
+
                <button
                   className={classes.editBtn}
                   onClick={editTodoHandle}
@@ -112,26 +130,29 @@ export const Notes = () => {
                   data-title={note.title}>
                   <img src={editImg} alt="edit button" />
                </button>
-               <button
-                  className={classes.deleteBtn}
+
+               <button className={classes.deleteBtn}
                   onClick={removeTodoHandle}
                   data-id={note.id}>
                   <img src={deleteImg} alt="delete button" />
                </button>
 
                {(note.id === editNoteId) && (
-                  <div className={classes.editBlock} onClick={e => e.stopPropagation()}>
+                  <div className={classes.editBlock} onClick={onClickEditBlock}>
+
                      <input
                         className={classes.editInput}
                         placeholder="Edit your note..."
                         value={editInputValue}
                         onChange={getInputValue} />
+
                      <button
                         className={classes.updateBtn}
                         onClick={updateTodoHandle}
                         data-id={note.id}
                      >Update</button>
-                     <button className={classes.updateBtn} onClick={() => setEditNoteId(null)}>Cancel</button>
+
+                     <button className={classes.updateBtn} onClick={onCancellBtn}>Cancel</button>
                   </div>)}
 
             </li>

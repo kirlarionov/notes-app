@@ -37,7 +37,7 @@ export const getTodosFailure = (payload) => ({
    type: GET_TODOS_FAILURE,
    payload
 })
-// -----------------------------------------------------------------------------
+
 export const addTodo = (data) => {
    return (dispatch) => {
       dispatch(addTodoRequest())

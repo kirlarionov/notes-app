@@ -20,20 +20,6 @@ export const Notes = () => {
    const [editNoteId, setEditNoteId] = useState(null)
    const [editInputValue, setEditInputValue] = useState('')
 
-   //                                      БЕЗ Redux 
-   // const toggleHandle = useCallback(e => {
-   //    const el = e.currentTarget
-   //    setStateNotes(prevState => {
-   //       const { [el.dataset.id]: currentNote, ...newNotes } = prevState
-   //       const updatedNote = { ...currentNote, done: !currentNote.done }
-   //       updateTodo(updatedNote.id, { done: updatedNote.done })
-   //       return {
-   //          ...newNotes,
-   //          [updatedNote.id]: updatedNote
-   //       }
-   //    })
-   //    el.classList.toggle(`${classes.active}`)
-   // }, [setStateNotes])
 
    const toggleHandle = useCallback(e => {
       const el = e.currentTarget
@@ -49,40 +35,11 @@ export const Notes = () => {
       setEditInputValue(title)
    }, [setEditNoteId])
 
-   //                                      БЕЗ Redux 
-   // const updateTodoHandle = useCallback(e => {
-   //    e.stopPropagation()
-   //    const el = e.currentTarget
-   //    setStateNotes(prevState => {
-   //       const { [el.dataset.id]: currentNote, ...newNotes } = prevState
-   //       const updatedNote = { ...currentNote, title: editInputValue }
-   //       updateTodo(updatedNote.id, { title: updatedNote.title })
-   //       return {
-   //          ...newNotes,
-   //          [updatedNote.id]: updatedNote
-   //       }
-   //    })
-   //    setEditNoteId(null)
-   // }, [setStateNotes, editInputValue])
-
    const updateTodoHandle = useCallback(e => {
       e.stopPropagation()
       dispatch(updateTodo(editNoteId, editInputValue))
       setEditNoteId(null)
    }, [editInputValue, editNoteId, dispatch])
-
-   //                                      БЕЗ Redux 
-   // const removeTodoHandle = useCallback(e => {
-   //    e.stopPropagation()
-   //    const { id } = e.currentTarget.dataset
-   //    removeTodo(id)
-   //       .then(data => {
-   //          data && setStateNotes(notes => {
-   //             const { [id]: removedNote, ...newState } = notes
-   //             return newState
-   //          })
-   //       })
-   // }, [setStateNotes])
 
    const removeTodoHandle = useCallback(e => {
       e.stopPropagation()

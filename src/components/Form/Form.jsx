@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import classes from "./Form.module.css"
-// import { addTodo } from "../../services/todos"
+//import { addTodo } from "../../services/todos"
 import { todosFetchingSelector } from "../../store/selectors"
 import { getTodos, addTodo } from "../../store/actions/todos"
 
@@ -16,19 +16,6 @@ export const Form = () => {
 
    const [emptyInput, setEmptyInput] = useState(false)
 
-
-   // const addNoteHandle = useCallback(note => {
-   //    dispatch(prevState => ({ ...prevState, [note.id]: note }))
-   // }, [dispatch])
-
-   //                                      БЕЗ Redux 
-   // const submitHandler = useCallback(event => {
-   //    event.preventDefault()
-   //    const formData = new FormData(event.currentTarget)
-   //    const { status, ...data } = Object.fromEntries(formData)
-   //    addTodo({ ...data, done: status === 'done' }).then(data => addNoteHandle(data))
-   //    inputRef.current && (inputRef.current.value = '')
-   // }, [addNoteHandle])
 
    const submitHandler = useCallback(event => {
       event.preventDefault()

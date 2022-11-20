@@ -1,27 +1,18 @@
-import React from "react";
-import cl from './Navbar.module.css';
-import { NavLink } from "react-router-dom";
+import React from "react"
+import cl from "./Navbar.module.css"
+import { NavLink } from "react-router-dom"
 
 export const Navbar = () => (
    <nav className={cl.navbar}>
-      <div className={cl.navbarBrand}>
-         To Do App
-      </div>
+      <div className={cl.navbarBrand}>To Do App</div>
       <ul className={cl.navbarNav}>
          <li className={cl.navbarItem}>
-            <NavLink
-               className={cl.navLink}
-               to="/"
-               exact
-            >
+            <NavLink className={cl.navLink} to="/notes-app/" exact>
                HOME
             </NavLink>
          </li>
          <li className={cl.navbarItem}>
-            <NavLink
-               className={cl.navLink}
-               to="/about"
-            >
+            <NavLink className={cl.navLink} to="/notes-app/about">
                ABOUT
             </NavLink>
          </li>

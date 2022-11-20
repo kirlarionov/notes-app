@@ -2,7 +2,7 @@
 
 <h1 align="center">
       Notes App
-      <img src="./src/assets/img/notepad.svg" width="24">
+      <img src="./src/assets/image/notepad.png" width="24">
 </h1>
 
 ## About

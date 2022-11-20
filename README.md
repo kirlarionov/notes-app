@@ -8,7 +8,7 @@
 ## About
 Notes App using React.js + Redux (December 2021)
  
- Link to view this  App &#10143;  https://kirlarionov.github.io/profiles-table/
+ Link to view this  App &#10143;  https://kirlarionov.github.io/notes-app/
 
 ## Technology stack
 <p>
